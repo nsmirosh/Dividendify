@@ -1,8 +1,9 @@
 package com.example.dividendify.models
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
-class StockQuote {
+class StockQuote: Serializable {
     @SerializedName("c")
     var currentPrice: Double = 0.0
 

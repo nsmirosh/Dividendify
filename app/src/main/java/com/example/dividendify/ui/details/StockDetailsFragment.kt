@@ -6,27 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.example.dividendify.R
+import kotlinx.android.synthetic.main.stock_details_fragment.*
 
-class StockDetailsFragment : Fragment() {
+class StockDetailsFragment : Fragment(R.layout.stock_details_fragment) {
 
     val stockDetailsViewModel: StockDetailsViewModel by viewModels()
 
-    companion object {
-        fun newInstance() =
-            StockDetailsFragment()
-    }
+    val args: StockDetailsFragmentArgs by navArgs()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.stock_details_fragment, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val stockQuote = args.stockQuote
+        stockName.text = stockQuote.currentPrice.toString()
     }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        // TODO: Use the ViewModel
-    }
-
 }

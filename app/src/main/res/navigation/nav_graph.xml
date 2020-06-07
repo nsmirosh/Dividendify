@@ -9,14 +9,18 @@
         android:id="@+id/stockDetailsFragment"
         android:name="com.example.dividendify.ui.details.StockDetailsFragment"
         android:label="stock_details_fragment"
-        tools:layout="@layout/stock_details_fragment" />
+        tools:layout="@layout/stock_details_fragment">
+        <argument
+            android:name="stockQuote"
+            app:argType="com.example.dividendify.models.StockQuote" />
+    </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.dividendify.ui.home.HomeFragment"
         android:label="home_fragment"
-        tools:layout="@layout/home_fragment" >
+        tools:layout="@layout/home_fragment">
         <action
-            android:id="@+id/action_homeFragment_to_stockDetailsFragment"
+            android:id="@+id/to_stockDetailsFragment"
             app:destination="@id/stockDetailsFragment" />
     </fragment>
 </navigation>

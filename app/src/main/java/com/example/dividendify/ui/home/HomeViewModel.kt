@@ -18,9 +18,8 @@ class HomeViewModel : ViewModel() {
         searchRepo.getQuoteForStock(searchString)
     }
 
-
     fun getStockQuotes(): LiveData<StockQuote> {
-        return searchRepo.stockQuote!!
+        return searchRepo.stockQuote
     }
 
 
