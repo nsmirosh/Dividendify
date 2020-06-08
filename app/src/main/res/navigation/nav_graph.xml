@@ -11,8 +11,8 @@
         android:label="stock_details_fragment"
         tools:layout="@layout/stock_details_fragment">
         <argument
-            android:name="stockQuote"
-            app:argType="com.example.dividendify.models.StockQuote" />
+            android:name="companyProfile"
+            app:argType="com.example.dividendify.models.CompanyProfile" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"

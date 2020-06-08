@@ -8,8 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.dividendify.R
-import com.example.dividendify.models.StockQuote
-import com.example.dividendify.ui.details.StockDetailsFragment
+import com.example.dividendify.models.CompanyProfile
 import kotlinx.android.synthetic.main.home_fragment.*
 
 class HomeFragment : Fragment(R.layout.home_fragment) {
@@ -22,17 +21,12 @@ class HomeFragment : Fragment(R.layout.home_fragment) {
             viewModel.onSearchClicked(search.text.toString())
         }
 
-        val nameObserver = Observer<StockQuote> { stockQuote ->
-            result.setText(stockQuote.currentPrice.toString())
-
+        val nameObserver = Observer<CompanyProfile> { companyProfile ->
             view.findNavController()
-                .navigate(HomeFragmentDirections.toStockDetailsFragment(stockQuote))
+                .navigate(HomeFragmentDirections.toStockDetailsFragment(companyProfile))
         }
 
-
-        // Observe the LiveData, passing in this activity as the LifecycleOwner and the observer.
-        viewModel.stockQuote.observe(viewLifecycleOwner, nameObserver)
-
+        viewModel.companyProfile.observe(viewLifecycleOwner, nameObserver)
     }
 
     override fun onAttach(context: Context) {
