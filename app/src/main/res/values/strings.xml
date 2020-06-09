@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Dividendify</string>
+
+    <string name="stock_details_low_today">Today\'s low</string>
+    <string name="stock_details_high_today">Today\'s high</string>
+
 </resources>

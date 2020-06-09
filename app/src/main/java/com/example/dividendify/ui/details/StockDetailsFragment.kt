@@ -26,7 +26,11 @@ class StockDetailsFragment : Fragment(R.layout.stock_details_fragment) {
         stockDetailsViewModel.onCreate(companyProfile.ticker!!)
 
         val stockQuoteObserver = Observer<StockQuote> { stockQuote ->
-            currentPrice.text = stockQuote.currentPrice.toString()
+            with(stockQuote) {
+                currentPriceValue.text = currentPrice.toString()
+                highToday.text = highPriceToday.toString()
+                lowToday.text = lowPriceToday.toString()
+            }
         }
 
         stockDetailsViewModel.stockQuote.observe(viewLifecycleOwner, stockQuoteObserver)

@@ -10,22 +10,71 @@
         android:id="@+id/stockName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="48dp"
         android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Google" />
 
     <TextView
-        android:id="@+id/currentPrice"
+        android:id="@+id/currentPriceValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
         android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/stockName"
         tools:text="$248.84" />
+
+    <TextView
+        android:id="@+id/lowToday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/stock_details_low_today"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/lowToday_value"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/currentPriceValue" />
+
+    <TextView
+        android:id="@+id/lowToday_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="@string/stock_details_low_today"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/lowToday"
+        app:layout_constraintTop_toTopOf="@id/lowToday"
+        tools:text="$245.84" />
+
+
+    <TextView
+        android:id="@+id/highToday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/stock_details_high_today"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/highToday_value"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lowToday" />
+
+    <TextView
+        android:id="@+id/highToday_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="@string/stock_details_low_today"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/highToday"
+        app:layout_constraintTop_toTopOf="@id/highToday"
+        tools:text="$251.84" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
