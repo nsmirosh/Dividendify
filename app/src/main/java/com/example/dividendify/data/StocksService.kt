@@ -2,6 +2,7 @@ package com.example.dividendify.data
 
 import com.example.dividendify.models.CompanyProfile
 import com.example.dividendify.models.Dividend
+import com.example.dividendify.models.FinancialsResponse
 import com.example.dividendify.models.StockQuote
 import retrofit2.Call
 import retrofit2.http.GET
@@ -28,5 +29,9 @@ interface StocksService {
         @Query("symbol") symbol: String?,
         @Query("token") token: String?
     ): Call<CompanyProfile>?
+
+
+    @GET("/stock/financials")
+    fun getFinancials():Call<FinancialsResponse>
 
 }
