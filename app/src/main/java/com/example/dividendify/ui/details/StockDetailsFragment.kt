@@ -11,6 +11,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.dividendify.R
 import com.example.dividendify.models.CompanyProfile
+import com.example.dividendify.models.Financials
 import com.example.dividendify.models.StockQuote
 import com.example.dividendify.ui.home.HomeFragmentDirections
 import kotlinx.android.synthetic.main.stock_details_fragment.*
@@ -33,6 +34,13 @@ class StockDetailsFragment : Fragment(R.layout.stock_details_fragment) {
             }
         }
 
+        val financialsObserver = Observer<List<Financials>> { financials ->
+            with(financials) {
+                currentPriceValue.text = get(0).report!!.balanceSheet!!.Assets.toString()
+            }
+        }
+
         stockDetailsViewModel.stockQuote.observe(viewLifecycleOwner, stockQuoteObserver)
+        stockDetailsViewModel.financials.observe(viewLifecycleOwner, financialsObserver)
     }
 }

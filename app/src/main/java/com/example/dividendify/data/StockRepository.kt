@@ -2,9 +2,7 @@ package com.example.dividendify.data
 
 import androidx.lifecycle.MutableLiveData
 import com.example.dividendify.BuildConfig
-import com.example.dividendify.models.CompanyProfile
-import com.example.dividendify.models.Dividend
-import com.example.dividendify.models.StockQuote
+import com.example.dividendify.models.*
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -18,7 +16,7 @@ class StockRepository {
 
     var companyProfile: MutableLiveData<CompanyProfile> = MutableLiveData()
 
-    var dividendHistory: MutableLiveData<List<Dividend?>> = MutableLiveData()
+    var financials: MutableLiveData<List<Financials>> = MutableLiveData()
 
     fun getQuoteForStock(symbol: String) {
         val stuff = buildStockService().getQuote(symbol, BuildConfig.API_KEY)
@@ -40,11 +38,12 @@ class StockRepository {
         thread.start()
     }
 
-    fun getDividendHistory(symbol: String, from: String, to: String) {
-        val stuff = buildStockService().getDividendHistory(symbol, from, to, BuildConfig.API_KEY)
+
+    fun getFinancials(symbol: String, frequency: ReportFrequency?) {
+        val stuff = buildStockService().getFinancials(symbol, frequency, BuildConfig.API_KEY)
         val thread = Thread {
-            val response = stuff?.execute()
-            dividendHistory.postValue(response?.body())
+            val response = stuff.execute()
+            financials.postValue(response.body()!!.data)
         }
         thread.start()
     }
