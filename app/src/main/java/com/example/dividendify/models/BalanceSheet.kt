@@ -1,7 +1,7 @@
 package com.example.dividendify.models
 
 class BalanceSheet {
-    var Assets = 0
-    var Liabilities = 0
-    var InventoryNet = 0
+    var Assets = 0L
+    var Liabilities = 0L
+    var InventoryNet = 0L
 }

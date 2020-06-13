@@ -29,7 +29,7 @@ interface StocksService {
     @GET("stock/financials-reported")
     fun getFinancials(
         @Query("symbol") symbol: String?,
-        @Query("freq") frequency: ReportFrequency?,
+        @Query("freq") frequency: String?,
         @Query("token") token: String
     ): Call<FinancialsResponse>
 

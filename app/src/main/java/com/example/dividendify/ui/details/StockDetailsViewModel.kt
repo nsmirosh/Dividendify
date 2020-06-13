@@ -17,6 +17,6 @@ class StockDetailsViewModel : ViewModel() {
 
     fun onCreate(symbol: String) {
         stockRepo.getQuoteForStock(symbol)
-        stockRepo.getFinancials(symbol, /*ReportFrequency.ANNUAL*/null)
+        stockRepo.getFinancials(symbol, ReportFrequency.QUARTERLY)
     }
 }

@@ -8,6 +8,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 
 class StockRepository {
@@ -40,7 +41,7 @@ class StockRepository {
 
 
     fun getFinancials(symbol: String, frequency: ReportFrequency?) {
-        val stuff = buildStockService().getFinancials(symbol, frequency, BuildConfig.API_KEY)
+        val stuff = buildStockService().getFinancials(symbol, frequency!!.freq, BuildConfig.API_KEY)
         val thread = Thread {
             val response = stuff.execute()
             financials.postValue(response.body()!!.data)
@@ -55,6 +56,8 @@ class StockRepository {
         logging.setLevel(HttpLoggingInterceptor.Level.BODY)
 
         val client = OkHttpClient.Builder()
+            .connectTimeout(30, TimeUnit.SECONDS) // connect timeout
+            .readTimeout(30, TimeUnit.SECONDS)   // socket timeout
             .addInterceptor(logging)
             .build()
 
