@@ -7,6 +7,9 @@ import com.example.dividendify.models.enums.ReportFrequency
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
@@ -23,44 +26,66 @@ class StockRepository : BaseRepository() {
     var symbols: MutableLiveData<List<Symbol>> = MutableLiveData()
 
     fun getQuoteForStock(symbol: String) {
-        val quoteCall =
-            buildRetrofit().create(StocksService::class.java).getQuote(symbol, BuildConfig.API_KEY)
-        val thread = Thread {
-            val response = quoteCall!!.execute()
-            stockQuote.postValue(response.body())
-        }
-        thread.start()
+        buildRetrofit().create(StocksService::class.java).getQuote(symbol)
+            ?.enqueue(object : Callback<StockQuote> {
+                override fun onResponse(
+                    call: Call<StockQuote>?,
+                    response: Response<StockQuote>?
+                ) {
+                    stockQuote.value = response!!.body()
+                }
+
+                override fun onFailure(call: Call<StockQuote>, t: Throwable) {
+                }
+            })
     }
 
     fun getCompanyProfile(symbol: String) {
-        val companyProfileCall = buildRetrofit().create(StocksService::class.java)
-            .getCompanyProfile(symbol, BuildConfig.API_KEY)
+        buildRetrofit().create(StocksService::class.java)
+            .getCompanyProfile(symbol)
+            .enqueue(object : Callback<CompanyProfile> {
+                override fun onResponse(
+                    call: Call<CompanyProfile>?,
+                    response: Response<CompanyProfile>?
+                ) {
+                    companyProfile.value = response!!.body()
+                }
 
-        val thread = Thread {
-            val response = companyProfileCall.execute()
-            companyProfile.postValue(response.body())
-        }
-        thread.start()
+                override fun onFailure(call: Call<CompanyProfile>, t: Throwable) {
+                }
+            })
     }
 
     fun getFinancials(symbol: String, frequency: ReportFrequency?) {
-        val financialsCall = buildRetrofit().create(StocksService::class.java)
-            .getFinancials(symbol, frequency!!.freq, BuildConfig.API_KEY)
-        val thread = Thread {
-            val response = financialsCall.execute()
-            financials.postValue(response.body()!!.data)
-        }
-        thread.start()
+        buildRetrofit().create(StocksService::class.java)
+            .getFinancials(symbol, frequency!!.freq)
+            .enqueue(object : Callback<FinancialsResponse> {
+                override fun onResponse(
+                    call: Call<FinancialsResponse>?,
+                    response: Response<FinancialsResponse>?
+                ) {
+                    financials.value = response!!.body()!!.data
+                }
+
+                override fun onFailure(call: Call<FinancialsResponse>, t: Throwable) {
+                }
+            })
     }
 
 
     fun getSymbols(exchange: String) {
-        val financialsCall = buildRetrofit().create(StocksService::class.java)
-            .getAllSymbols(exchange,  BuildConfig.API_KEY)
-        val thread = Thread {
-            val response = financialsCall.execute()
-            symbols.postValue(response.body())
-        }
-        thread.start()
+        buildRetrofit().create(StocksService::class.java)
+            .getAllSymbols(exchange)
+            .enqueue(object : Callback<List<Symbol>> {
+                override fun onResponse(
+                    call: Call<List<Symbol>>?,
+                    response: Response<List<Symbol>>?
+                ) {
+                    symbols.value = response!!.body()
+                }
+
+                override fun onFailure(call: Call<List<Symbol>>, t: Throwable) {
+                }
+            })
     }
 }

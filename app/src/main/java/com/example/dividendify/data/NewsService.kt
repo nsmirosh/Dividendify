@@ -10,7 +10,6 @@ interface NewsService {
     @GET("news")
     fun getGeneralNews(
         @Query("category") category: String,
-        @Query("minId") minId: String?,
-        @Query("token") token: String
+        @Query("minId") minId: String?
     ): Call<List<News>>?
 }

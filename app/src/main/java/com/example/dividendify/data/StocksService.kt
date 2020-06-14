@@ -9,27 +9,23 @@ interface StocksService {
 
     @GET("quote")
     fun getQuote(
-        @Query("symbol") symbol: String?,
-        @Query("token") token: String
+        @Query("symbol") symbol: String?
     ): Call<StockQuote>?
 
     @GET("stock/profile2")
     fun getCompanyProfile(
-        @Query("symbol") symbol: String?,
-        @Query("token") token: String
+        @Query("symbol") symbol: String?
     ): Call<CompanyProfile>
 
     @GET("stock/financials-reported")
     fun getFinancials(
         @Query("symbol") symbol: String?,
-        @Query("freq") frequency: String?,
-        @Query("token") token: String
+        @Query("freq") frequency: String?
     ): Call<FinancialsResponse>
 
     @GET("stock/symbol")
     fun getAllSymbols(
-        @Query("exchange") exchange: String,
-        @Query("token") token: String
+        @Query("exchange") exchange: String
     ): Call<List<Symbol>>
 
 }

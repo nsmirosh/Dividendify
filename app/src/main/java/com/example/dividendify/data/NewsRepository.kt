@@ -4,6 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import com.example.dividendify.BuildConfig
 import com.example.dividendify.models.News
 import com.example.dividendify.models.enums.NewsCategory
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class NewsRepository : BaseRepository() {
 
@@ -12,11 +15,18 @@ class NewsRepository : BaseRepository() {
     val newsService = buildRetrofit().create(NewsService::class.java)
 
     fun getNews(category: NewsCategory, minId: String?) {
-        val stuff = newsService.getGeneralNews(category.value, minId, BuildConfig.API_KEY)
-        val thread = Thread {
-            val response = stuff!!.execute()
-            news.postValue(response.body())
-        }
-        thread.start()
+        newsService.getGeneralNews(category.value, minId)
+            ?.enqueue(object : Callback<List<News>> {
+                override fun onResponse(
+                    call: Call<List<News>?>?,
+                    response: Response<List<News>?>?
+                ) {
+                    news.value = response!!.body()
+                }
+
+                override fun onFailure(call: Call<List<News>?>?, t: Throwable?) {
+
+                }
+            })
     }
 }

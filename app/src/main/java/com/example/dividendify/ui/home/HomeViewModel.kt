@@ -22,6 +22,6 @@ class HomeViewModel : ViewModel() {
 
     fun onCreate() {
         newsRepo.getNews(NewsCategory.GENERAL, null)
-        stockRepo.getSymbols("US")
+//        stockRepo.getSymbols("US")
     }
 }
