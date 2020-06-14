@@ -4,8 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.dividendify.data.StockRepository
 import com.example.dividendify.models.Financials
-import com.example.dividendify.models.FinancialsResponse
-import com.example.dividendify.models.ReportFrequency
+import com.example.dividendify.models.enums.ReportFrequency
 import com.example.dividendify.models.StockQuote
 
 class StockDetailsViewModel : ViewModel() {

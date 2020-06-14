@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.dividendify.R
 import com.example.dividendify.models.CompanyProfile
+import com.example.dividendify.models.News
 import kotlinx.android.synthetic.main.home_fragment.*
 
 class HomeFragment : Fragment(R.layout.home_fragment) {
@@ -17,6 +18,7 @@ class HomeFragment : Fragment(R.layout.home_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.onCreate()
         launch_search_button.setOnClickListener {
             viewModel.onSearchClicked(search.text.toString())
         }
@@ -26,7 +28,13 @@ class HomeFragment : Fragment(R.layout.home_fragment) {
                 .navigate(HomeFragmentDirections.toStockDetailsFragment(companyProfile))
         }
 
+        val newsObserver = Observer<List<News>> { news ->
+            some_news_stuff.text = news.get(0).summary
+        }
+
         viewModel.companyProfile.observe(viewLifecycleOwner, nameObserver)
+        viewModel.news.observe(viewLifecycleOwner, newsObserver)
+
     }
 
     override fun onAttach(context: Context) {
