@@ -20,6 +20,8 @@ class StockRepository : BaseRepository() {
 
     var financials: MutableLiveData<List<Financials>> = MutableLiveData()
 
+    var symbols: MutableLiveData<List<Symbol>> = MutableLiveData()
+
     fun getQuoteForStock(symbol: String) {
         val quoteCall =
             buildRetrofit().create(StocksService::class.java).getQuote(symbol, BuildConfig.API_KEY)
@@ -35,8 +37,8 @@ class StockRepository : BaseRepository() {
             .getCompanyProfile(symbol, BuildConfig.API_KEY)
 
         val thread = Thread {
-            val response = companyProfileCall?.execute()
-            companyProfile.postValue(response?.body())
+            val response = companyProfileCall.execute()
+            companyProfile.postValue(response.body())
         }
         thread.start()
     }
@@ -47,6 +49,17 @@ class StockRepository : BaseRepository() {
         val thread = Thread {
             val response = financialsCall.execute()
             financials.postValue(response.body()!!.data)
+        }
+        thread.start()
+    }
+
+
+    fun getSymbols(exchange: String) {
+        val financialsCall = buildRetrofit().create(StocksService::class.java)
+            .getAllSymbols(exchange,  BuildConfig.API_KEY)
+        val thread = Thread {
+            val response = financialsCall.execute()
+            symbols.postValue(response.body())
         }
         thread.start()
     }

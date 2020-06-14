@@ -6,13 +6,6 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface StocksService {
-    @GET("stock/dividend")
-    fun getDividendHistory(
-        @Query("symbol") symbol: String?,
-        @Query("from") from: String?,
-        @Query("to") to: String?,
-        @Query("token") token: String
-    ): Call<List<Dividend?>?>?
 
     @GET("quote")
     fun getQuote(
@@ -24,7 +17,7 @@ interface StocksService {
     fun getCompanyProfile(
         @Query("symbol") symbol: String?,
         @Query("token") token: String
-    ): Call<CompanyProfile>?
+    ): Call<CompanyProfile>
 
     @GET("stock/financials-reported")
     fun getFinancials(
@@ -32,5 +25,11 @@ interface StocksService {
         @Query("freq") frequency: String?,
         @Query("token") token: String
     ): Call<FinancialsResponse>
+
+    @GET("stock/symbol")
+    fun getAllSymbols(
+        @Query("exchange") exchange: String,
+        @Query("token") token: String
+    ): Call<List<Symbol>>
 
 }
