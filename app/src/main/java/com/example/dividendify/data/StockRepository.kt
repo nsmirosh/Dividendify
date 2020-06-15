@@ -3,6 +3,7 @@ package com.example.dividendify.data
 import androidx.lifecycle.MutableLiveData
 import com.example.dividendify.BuildConfig
 import com.example.dividendify.models.*
+import com.example.dividendify.models.enums.MetricType
 import com.example.dividendify.models.enums.ReportFrequency
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
@@ -22,6 +23,8 @@ class StockRepository : BaseRepository() {
     var companyProfile: MutableLiveData<CompanyProfile> = MutableLiveData()
 
     var financials: MutableLiveData<List<Financials>> = MutableLiveData()
+
+    var basicFinancials: MutableLiveData<BasicFinancials> = MutableLiveData()
 
     var symbols: MutableLiveData<List<Symbol>> = MutableLiveData()
 
@@ -72,6 +75,21 @@ class StockRepository : BaseRepository() {
             })
     }
 
+    fun getBasicFinancials(symbol: String, metricType: MetricType) {
+        buildRetrofit().create(StocksService::class.java)
+            .getBasicFinancials(symbol, metricType.value)
+            .enqueue(object : Callback<BasicFinancialsResponse> {
+                override fun onResponse(
+                    call: Call<BasicFinancialsResponse>?,
+                    response: Response<BasicFinancialsResponse>?
+                ) {
+                    basicFinancials.value = response!!.body()!!.metric
+                }
+
+                override fun onFailure(call: Call<BasicFinancialsResponse>, t: Throwable) {
+                }
+            })
+    }
 
     fun getSymbols(exchange: String) {
         buildRetrofit().create(StocksService::class.java)

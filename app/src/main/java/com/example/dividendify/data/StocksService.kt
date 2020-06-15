@@ -28,4 +28,10 @@ interface StocksService {
         @Query("exchange") exchange: String
     ): Call<List<Symbol>>
 
+    @GET("stock/metric")
+    fun getBasicFinancials(
+        @Query("symbol") symbol: String,
+        @Query("metric") metric: String
+    ): Call<BasicFinancialsResponse>
+
 }

@@ -12,4 +12,12 @@ interface NewsService {
         @Query("category") category: String,
         @Query("minId") minId: String?
     ): Call<List<News>>?
+
+
+    @GET("company-news")
+    fun getCompanyNews(
+        @Query("symbol") symbol: String,
+        @Query("from") from: String,
+        @Query("to") to: String
+    ): Call<List<News>>?
 }
