@@ -10,7 +10,6 @@ import com.example.dividendify.models.StockQuote
 class StockDetailsViewModel : ViewModel() {
 
     val stockRepo = StockRepository()
-
     val stockQuote: LiveData<StockQuote> = stockRepo.stockQuote
     val financials: LiveData<List<Financials>> = stockRepo.financials
 
