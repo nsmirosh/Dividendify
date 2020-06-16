@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.dividendify.R
 import com.example.dividendify.models.CompanyProfile
 import com.example.dividendify.models.News
@@ -15,6 +17,10 @@ import kotlinx.android.synthetic.main.home_fragment.*
 class HomeFragment : Fragment(R.layout.home_fragment) {
 
     lateinit var viewModel: HomeViewModel
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var viewAdapter: NewsAdapter
+    private lateinit var viewManager: RecyclerView.LayoutManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -29,7 +35,16 @@ class HomeFragment : Fragment(R.layout.home_fragment) {
         }
 
         val newsObserver = Observer<List<News>> { news ->
-            some_news_stuff.text = news.get(0).summary
+            viewAdapter.setItems(news)
+        }
+
+        viewManager = LinearLayoutManager(this.requireContext())
+
+        recyclerView = my_recycler_view.apply {
+            viewAdapter = NewsAdapter(ArrayList())
+
+            layoutManager = viewManager
+            adapter = viewAdapter
         }
 
         viewModel.companyProfile.observe(viewLifecycleOwner, nameObserver)
