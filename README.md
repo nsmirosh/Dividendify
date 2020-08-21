@@ -15,5 +15,5 @@ You need to create a [Finnhub](https://finnhub.io/) API key and follow the instr
 
 ### to contribute:
 
-1. contact me at nsmirosh@gmail.com
+1. contact me at nsmirosh@gmail.com or Telegram at @nsmirosh
 2. check out the [Trello](https://trello.com/b/8j9Zlbfu/dividendify) board
