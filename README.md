@@ -1,6 +1,6 @@
 # Dividendify
 
-An Android app written in Kotlin aimed at Stock and ETF investors particularly interested in dividend investing. The app also acts as a showcase for various technologies. 
+An Android app written in Kotlin aimed at Stock and ETF investors particularly interested in dividend investing. The app also acts as a showcase for RxJava, Coroutines and Android JetPack. The app will have separate branchers to showcase MVVM, MVP, MVI and VIPER architectures. 
 
 ### Prerequisites
 
