@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.dividendify.R
 import com.example.dividendify.models.CompanyProfile
 import com.example.dividendify.models.News
+import com.orhanobut.logger.Logger
+import io.reactivex.rxjava3.core.Observable
 import kotlinx.android.synthetic.main.home_fragment.*
 
 class HomeFragment : Fragment(R.layout.home_fragment) {
@@ -46,6 +48,12 @@ class HomeFragment : Fragment(R.layout.home_fragment) {
             layoutManager = viewManager
             adapter = viewAdapter
         }
+        
+        var result = ""
+        val observable: Observable<String> = Observable.just("Hello")
+        observable.subscribe { s -> result = s }
+
+        Logger.d("result = $result");
 
         viewModel.companyProfile.observe(viewLifecycleOwner, nameObserver)
         viewModel.news.observe(viewLifecycleOwner, newsObserver)

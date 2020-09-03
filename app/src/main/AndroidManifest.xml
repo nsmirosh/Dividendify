@@ -9,6 +9,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:name=".app.DividendifyApp"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.home.MainActivity">
             <intent-filter>
